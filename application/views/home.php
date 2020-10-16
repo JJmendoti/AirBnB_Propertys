@@ -1,2 +1,2 @@
-<h1 class="tex-center mt-3 mb-3">AirBnB Propertys</h1>
+<h1 class="text-center mt-3 mb-3">AirBnB Propertys</h1>
 
