@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Api extends CI_Controller
 {
 
+    //endpoint registrar usuario
     public function signUp()
     {
         $method = $_SERVER['REQUEST_METHOD'];
@@ -13,6 +14,7 @@ class Api extends CI_Controller
             $dataJson = file_get_contents('php://input');
             $data = json_decode($dataJson);
             //validar que el campo exista
+<<<<<<< HEAD
             if (isset($data->type_identification) && isset($data->identification) && isset($data->name) && isset($data->lastname) && isset($data->email) && isset($data->password)) {
                 // $email = $data->email;
                 if ($data->type_identification == "" || $data->identification == "" || $data->name == "" || $data->lastname == "" ||  $data->email == "" || $data->password == "") {
@@ -64,15 +66,104 @@ class Api extends CI_Controller
                 }
             } else {
                 header('content-type: application/json');
+=======
+            if (isset($data->type_identification) && (isset($data->identification)) && (isset($data->name)) && (isset($data->lastname)) && (isset($data->email)) && (isset($data->password))) {
+            //validar que el campo no vaya vació
+                if ($data->type_identification == "" || $data->identification == "" || 
+                $data->name == "" || $data->lastname == "" || $data->email == "" || 
+                $data->password == "") {
+                    
+                } else {
+                    header('conten-type: application/json');
+                    $this->UsersModel->signUp($data);
+                    $response = array('response' => 'Campos existentes, User Guardado Successfully');
+                    echo json_encode($response);
+                }
+            } else {
+                header('conten-type: application/json');
+>>>>>>> 2e189e43c79eb75ec662865c9f4a9d6e48104314
                 $response = array('response' => 'campos no  existente');
                 echo json_encode($response);
             }
         } else {
             header('content-type: application/json');
             $data = array('response' => 'bad request');
+            //devuelve un json
             echo json_encode($data);
         }
     }
 
+<<<<<<< HEAD
     /* End of file Controllername.php */
 }
+=======
+
+    } 
+
+    public function signin(){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method === 'POST'){
+            echo 'signin';
+        }
+        else{
+            header('content-type: application/json');
+            $response = array('response' => 'bad request');
+            echo json_encode($response);
+        }
+    }
+    public function delete(){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method === 'DELETE'){
+            $dataJson = file_get_contents('php://input');
+            $data = json_decode($dataJson);
+            $this-> UsersModel->delete($data);
+            header('content-type: application/json');
+            $response = array('response' => 'exit delete');
+            echo json_encode($response);
+        }
+        else{
+            header('content-type: application/json');
+            $response = array('response' => 'bad request');
+            echo json_encode($response);
+        }
+    }
+
+    public function getUser(){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method === 'GET'){
+            $users = $this-> UsersModel->getUser();
+            header('content-type: application/json');
+            $response = array('response' => 'ok', "data"=>$users);
+            echo json_encode($response);
+        }
+        else{
+            header('content-type: application/json');
+            $response = array('response' => 'bad request');
+            echo json_encode($response);
+        }
+    }
+
+    public function update(){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if($method === 'PUT'){
+            $dataJson = file_get_contents('php://input');
+            $data = json_decode($dataJson);
+            $this-> UsersModel->update($data);
+            header('content-type: application/json');
+            $response = array('response' => 'exit');
+            echo json_encode($response);
+        }
+        else{
+            header('content-type: application/json');
+            $response = array('response' => 'bad request');
+            echo json_encode($response);
+        }
+    }
+
+}
+
+/* End of file Controllername.php */
+
+
+?>
+>>>>>>> 2e189e43c79eb75ec662865c9f4a9d6e48104314
